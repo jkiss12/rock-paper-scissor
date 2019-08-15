@@ -1,3 +1,4 @@
+package sk.jankiss;
 /**
  *	A class that represents player. 
  */

@@ -1,3 +1,4 @@
+package sk.jankiss;
 /**
  * 
  */
@@ -20,12 +21,15 @@ public class RockPaperScissor {
 	ArrayList<String> weapons;
 	
 	JFrame frame;
-	JPanel mainPanel;
-	JPanel bPanel;
+	JPanel mainPanel;		//for pics
+	JPanel bPanel;			//for buttons
+	JPanel scorePanel;		//for score and moves(history)
+
 	JButton bRock;
 	JButton bPaper;
 	JButton bScissor;
-	JTextField result;
+	JTextField yourMove;
+	JTextArea score;
 	
 	
 	/**
@@ -42,7 +46,7 @@ public class RockPaperScissor {
 	 
 	public void go() {
 		setUpGame();
-		//buildGUI();
+		buildGUI();
 		//startGame();
 		
 	}
@@ -96,10 +100,21 @@ public class RockPaperScissor {
 		menuBar.add(gameMenu);
 		menuBar.add(aboutMenu);
 		
-		result = new JTextField("",20);
+		yourMove = new JTextField("",10);
+		JLabel yourInput = new JLabel("Your move: ");
+		JLabel scoreLabel = new JLabel("Score:");
+		score = new JTextArea(5, 2);
+		
+		scorePanel = new JPanel();
+		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
+		scorePanel.add(yourInput);
+		scorePanel.add(yourMove);
+		scorePanel.add(scoreLabel);
+		scorePanel.add(score);
+		
+		
 		
 		mainPanel = new JPanel();
-		mainPanel.add(result);
 		//// here i ma dDING result of the fight
 		
 		
@@ -117,9 +132,11 @@ public class RockPaperScissor {
 		frame.setJMenuBar(menuBar);
 		frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
 		frame.getContentPane().add(BorderLayout.SOUTH, bPanel);
+		frame.getContentPane().add(BorderLayout.EAST, scorePanel);
 		frame.setSize(600, 400);
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //simple center the frame
+		frame.setVisible(true);
+		
 	}
 	
 	/**
@@ -153,6 +170,7 @@ public class RockPaperScissor {
 	class NewGameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			yourMove.setText("");
 			setUpGame();
 			
 		}
@@ -162,6 +180,8 @@ public class RockPaperScissor {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Rock");
+			yourMove.setText("Rock");
+			///mainPanel.repaint();
 			
 		}
 	}
@@ -170,6 +190,7 @@ public class RockPaperScissor {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Paper");
+			yourMove.setText("Paper");
 			
 		}
 	}
@@ -178,7 +199,16 @@ public class RockPaperScissor {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Scissor");
+			yourMove.setText("Scissor");
 		}
 		
+	}
+	
+	class MyDrawPanel extends JPanel {
+		@Override
+		public void paintComponents(Graphics g) {
+			g.setColor(Color.orange);
+			g.fillRect(20, 50, 100, 100);
+		}
 	}
 } 
