@@ -13,6 +13,7 @@ public class Player {
 	private int guess;
 	private int score;
 	
+	
 	public Player() {
 		name = "Steven Basic";
 		guess = gesture();
